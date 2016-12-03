@@ -64,7 +64,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\..\Assemblies\log4net.dll</HintPath>
+      <HintPath>..\..\_Assemblies\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NUnit.Framework">
       <HintPath>$(SharpDevelopBinPath)\Tools\NUnit\NUnit.Framework.dll</HintPath>
