@@ -29,7 +29,7 @@ namespace FeihtWorx.Data
 		public String ProviderName { get; private set; }
 		public String ConnectionString { get; private set; }
 		public int DefaultCommandTimeout { get; private set; }
-		// xxx todo: persitent connection boolean
+		// xxx todo: persistent connection boolean
 		
 		private DbProviderFactory Factory;
 		public DataWorker(String providerName, String connectionString)
@@ -566,18 +566,41 @@ namespace FeihtWorx.Data
 		
 		public int DoNonQuery(string command, object paramsObject)
 		{
-			// todo
 			return DoNonQuery(command, paramsObject, null);
 		}
-		
 
 		public int DoNonQuery(string command, object paramsObject, Transaction transaction)
 		{
-			// todo
 			var dwt = new DataWorkerTask {
 				CommandText = command,
 				CommandType = CommandType.StoredProcedure,
 				Mode = DataWorkerMode.DataFields,
+				Transaction = transaction,
+			};
+			DoWorkDirect<object>(dwt, paramsObject);
+			return dwt.RowsAffected;
+		}
+
+		public int DoNonQueryObj(string command)
+		{
+			// todo: test
+			return DoNonQueryObj(command, null);
+		}
+
+		public int DoNonQueryObj(string command, object paramsObject)
+		{
+			// todo: test
+			return DoNonQueryObj(command, paramsObject, null);
+		}
+
+		public int DoNonQueryObj(string command, object paramsObject, Transaction transaction)
+		{
+			// todo: test
+			var dwt = new DataWorkerTask
+			{
+				CommandText = command,
+				CommandType = CommandType.StoredProcedure,
+				Mode = DataWorkerMode.AllProperties,
 				Transaction = transaction,
 			};
 			DoWorkDirect<object>(dwt, paramsObject);
