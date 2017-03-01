@@ -92,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FeihtWorx.Util\FeihtWorx.Util.csproj">
-      <Project>{E05AFAB8-8B7C-4EED-9FD7-90A58504E022}</Project>
+      <Project>{e05afab8-8b7c-4eed-9fd7-90a58504e022}</Project>
       <Name>FeihtWorx.Util</Name>
     </ProjectReference>
   </ItemGroup>

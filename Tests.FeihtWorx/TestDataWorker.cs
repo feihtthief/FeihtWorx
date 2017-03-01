@@ -762,6 +762,30 @@ namespace Tests.FeihtWorx
 			Assert.AreEqual(expectedName, result.Name);
 			Assert.AreEqual(loadID, testobject.ID);
 		}
+		
+		[Test]
+		public void Test_DW_Fetch_WithCustomCommandText()
+		{
+			InitSamples();
+			var before = GetCountOfSamples();
+			Assert.AreNotEqual(0, before);
+			var dw = GetDataWorker();
+			int loadID = 3;
+			var testobject = new SampleClass {
+				ID = loadID
+			};
+			Assert.AreNotEqual(0, testobject.ID);
+			Assert.IsNullOrEmpty(testobject.Name);
+			var result = dw.Fetch<SampleClass>("FetchSampleSpecial", testobject);
+			var after = GetCountOfSamples();
+			var expectedAfter = before;
+			var expectedName = "three";
+			Assert.IsNotNull(result);
+			Assert.AreEqual(expectedAfter, after);
+			Assert.AreEqual(expectedName, result.Name);
+			Assert.AreEqual(loadID, testobject.ID);
+			Assert.AreEqual("yes really", result.SpecialExtra);
+		}
 
 		[Test]
 		public void Test_DW_FetchByAllProps()

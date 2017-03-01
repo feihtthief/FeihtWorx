@@ -29,7 +29,7 @@ namespace FeihtWorx.Data
 		public String ProviderName { get; private set; }
 		public String ConnectionString { get; private set; }
 		public int DefaultCommandTimeout { get; private set; }
-		// xxx todo: persistent connection boolean
+		// todo: persistent connection boolean ??? // might needs MARS or otherwise might not be a good idea
 		
 		private DbProviderFactory Factory;
 		public DataWorker(String providerName, String connectionString)
@@ -300,7 +300,7 @@ namespace FeihtWorx.Data
 		//			var dict = (DataDictionary)input;
 		//			foreach (var pair in dict) {
 		//			}
-		////			
+		////
 		////			var t = typeof(T);
 		////			var props = t.GetProperties();
 		////			foreach (var prop in props) {
@@ -596,8 +596,7 @@ namespace FeihtWorx.Data
 		public int DoNonQueryObj(string command, object paramsObject, Transaction transaction)
 		{
 			// todo: test
-			var dwt = new DataWorkerTask
-			{
+			var dwt = new DataWorkerTask {
 				CommandText = command,
 				CommandType = CommandType.StoredProcedure,
 				Mode = DataWorkerMode.AllProperties,
@@ -662,11 +661,15 @@ namespace FeihtWorx.Data
 		{
 			return Fetch<T>((object)paramsObject);
 		}
-		
+
 		public T Fetch<T>(object paramsObject)
 		{
-
 			var commandText = AttributeHelper.GetFirstPropertyAttribute<DataClassAttribute>(typeof(T)).FetchProcedure;
+			return Fetch<T>(commandText, paramsObject);
+		}
+		
+		public T Fetch<T>(string commandText, object paramsObject)
+		{
 			var dwt = new DataWorkerTask {
 				CommandText = commandText,
 				CommandType = CommandType.StoredProcedure,
@@ -724,6 +727,16 @@ namespace FeihtWorx.Data
 		public List<T> List<T>(object paramsObject)
 		{
 			var commandText = AttributeHelper.GetFirstPropertyAttribute<DataClassAttribute>(typeof(T)).ListProcedure;
+			return List<T>(commandText, paramsObject);
+		}
+		
+		public List<T> List<T>(string commandText, object paramsObject)
+		{
+			return Query<T>(commandText, paramsObject);
+		}
+
+		public List<T> Query<T>(string commandText, object paramsObject)
+		{
 			var dwt = new DataWorkerTask {
 				CommandText = commandText,
 				CommandType = CommandType.StoredProcedure,
@@ -733,7 +746,13 @@ namespace FeihtWorx.Data
 			var result = DoWorkDirect<T>(dwt, paramsObject);
 			return result;
 		}
-
-
+		
+		// todo: implement transaction on insert, update, delete, et all
+		// todo: implement unit tests that cover transactions
+		// [ ]  do count, do insert , check count is increased by 1, roll back check count back to first count
+		// [ ]  do count, do delete , check count is decreased by 1, roll back check count back to first count
+		// [ ]  do fetch, do update , do new fetch, check fetched value changed, roll back ,
+		//		fetch again , check fetched again value is back to original
+		
 	}
 }
