@@ -17,18 +17,18 @@ namespace Scratch
 	public class SampleClassBase
 	{
 		[Sample]
-		public int ID {get;set;}
+		public int ID { get; set; }
 		[Sample]
-		public string Name {get;set;}
+		public string Name { get; set; }
 		
 		[Other]
-		public int Age {get;set;}
+		public int Age { get; set; }
 		[Other]
-		public string OldName {get;set;}
+		public string OldName { get; set; }
 		
 		
-		public int SomeThing {get;set;}
-		public string Moo {get;set;}
+		public int SomeThing { get; set; }
+		public string Moo { get; set; }
 
 	}
 }

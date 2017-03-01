@@ -16,11 +16,11 @@ namespace FeihtWorx.Data
 	[AttributeUsageAttribute(AttributeTargets.Class)]
 	public class DataClassAttribute:Attribute
 	{
-		public String ListProcedure {get; set;}
-		public String InsertProcedure {get; set;}
-		public String FetchProcedure {get; set;}
-		public String UpdateProcedure {get; set;}
-		public String DeleteProcedure {get; set;}
+		public String ListProcedure { get; set; }
+		public String InsertProcedure { get; set; }
+		public String FetchProcedure { get; set; }
+		public String UpdateProcedure { get; set; }
+		public String DeleteProcedure { get; set; }
 		
 		public DataClassAttribute()
 		{

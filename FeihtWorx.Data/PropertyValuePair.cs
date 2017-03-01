@@ -16,6 +16,9 @@ namespace FeihtWorx.Data
 	/// </summary>
 	public class PropertyValuePair:Pair<PropertyInfo, object>
 	{
-		public PropertyValuePair(PropertyInfo propInfo, object value):base(propInfo,value){}
+		public PropertyValuePair(PropertyInfo propInfo, object value)
+			: base(propInfo, value)
+		{
+		}
 	}
 }

@@ -28,8 +28,10 @@ namespace Scratch
 		public static void Main(string[] args)
 		{
 			
-			if (log.IsDebugEnabled) { log.Debug("Scratch Started"); }
-			var dw = new DataWorker(SqlProvider,SqlConnectionString);
+			if (log.IsDebugEnabled) {
+				log.Debug("Scratch Started");
+			}
+			var dw = new DataWorker(SqlProvider, SqlConnectionString);
 			
 			PerformSqlTest2();
 			PerformProperyAttributesTest();
@@ -81,11 +83,11 @@ namespace Scratch
 						var parm = cmd.Parameters[i];
 						Console.WriteLine(parm.ParameterName);
 					}
-					using(var reader =cmd.ExecuteReader()) {
-						while (reader.Read()){
+					using (var reader = cmd.ExecuteReader()) {
+						while (reader.Read()) {
 							int id = reader.GetInt32(0);
 							string name = reader.GetString(1);
-							Console.WriteLine("{0} - {1}",id,name);
+							Console.WriteLine("{0} - {1}", id, name);
 						}
 					}
 				}

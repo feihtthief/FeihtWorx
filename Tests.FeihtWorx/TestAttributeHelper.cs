@@ -20,28 +20,28 @@ namespace Tests.FeihtWorx
 		public void TestGetAttribute()
 		{
 			var props = typeof(ProofClassForProofAttribute).GetProperties();
-			var totalFound =0;
-			foreach	(var prop in props) {
+			var totalFound = 0;
+			foreach (var prop in props) {
 				var attr = AttributeHelper.GetFirstPropertyAttribute<ProofAttribute>(prop);
-				if (attr!=null){
+				if (attr != null) {
 					totalFound++;
 				}
 			}
-			Assert.AreEqual(1,totalFound,"Expected to find exactly one attribute");
+			Assert.AreEqual(1, totalFound, "Expected to find exactly one attribute");
 		}
 		
 		[Test]
 		public void TestGetAttributeUsedWithNameParam()
 		{
 			var props = typeof(ProofClassForProofAttributeWithNameParam).GetProperties();
-			var totalFound =0;
-			foreach	(var prop in props) {
+			var totalFound = 0;
+			foreach (var prop in props) {
 				var attr = AttributeHelper.GetFirstPropertyAttribute<ProofAttribute>(prop);
-				if (attr!=null){
+				if (attr != null) {
 					totalFound++;
 				}
 			}
-			Assert.AreEqual(1,totalFound,"Expected to find exactly one attribute");
+			Assert.AreEqual(1, totalFound, "Expected to find exactly one attribute");
 		}
 		
 		[Test]
@@ -49,12 +49,12 @@ namespace Tests.FeihtWorx
 		{
 			var props = typeof(ProofClassForUnusedProofAttribute).GetProperties();
 			var totalInspected = 0;
-			foreach	(var prop in props) {
+			foreach (var prop in props) {
 				totalInspected++;
 				var attr = AttributeHelper.GetFirstPropertyAttribute<UnusedProofAttribute>(prop);
-				Assert.IsNull(attr,"Expected to get back null for unused attribute");
+				Assert.IsNull(attr, "Expected to get back null for unused attribute");
 			}
-			Assert.AreNotEqual(0,totalInspected,"Expected to have inspected some attributes");
+			Assert.AreNotEqual(0, totalInspected, "Expected to have inspected some attributes");
 		}
 		
 		
@@ -62,39 +62,39 @@ namespace Tests.FeihtWorx
 		public void TestGetAttributeWhenMultiUsed()
 		{
 			var props = typeof(ProofClassForMultiUsedProofAttribute).GetProperties();
-			Assert.IsTrue(props.Length>0,"Expected to have properties");
-			var totalFound =0;
-			foreach	(var prop in props) {
+			Assert.IsTrue(props.Length > 0, "Expected to have properties");
+			var totalFound = 0;
+			foreach (var prop in props) {
 				var attr = AttributeHelper.GetFirstPropertyAttribute<MultiUsedProofAttribute>(prop);
-				if (attr!=null) {
-					totalFound ++;
+				if (attr != null) {
+					totalFound++;
 				}
 			}
-			Assert.AreEqual(props.Length,totalFound,"Expected to find 1 attribute per Property)");
+			Assert.AreEqual(props.Length, totalFound, "Expected to find 1 attribute per Property)");
 		}
 		
 		[Test]
 		public void TestGetAttributesWhenMultiUsed()
 		{
 			var props = typeof(ProofClassForMultiUsedProofAttribute).GetProperties();
-			var totalFound =0;
-			foreach	(var prop in props) {
+			var totalFound = 0;
+			foreach (var prop in props) {
 				var attrs = AttributeHelper.GetPropertyAttributes<MultiUsedProofAttribute>(prop);
-				foreach(var attr in attrs) {
+				foreach (var attr in attrs) {
 					totalFound++;
 				}
 			}
-			Assert.AreEqual(5,totalFound,"Expected to find 5 attributes");
+			Assert.AreEqual(5, totalFound, "Expected to find 5 attributes");
 		}
 		
 		[Test]
 		public void TestGetAttributesWhenNone()
 		{
 			var props = typeof(ProofClassForUnusedProofAttribute).GetProperties();
-			Assert.IsTrue(props.Length>0,"Expected to have properties");
-			foreach	(var prop in props) {
+			Assert.IsTrue(props.Length > 0, "Expected to have properties");
+			foreach (var prop in props) {
 				var attrs = AttributeHelper.GetPropertyAttributes<MultiUsedProofAttribute>(prop);
-				Assert.IsTrue(attrs.Length==0,"Expected to find no attributes");
+				Assert.IsTrue(attrs.Length == 0, "Expected to find no attributes");
 			}
 		}
 		

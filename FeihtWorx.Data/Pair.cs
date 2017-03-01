@@ -15,9 +15,9 @@ namespace FeihtWorx.Data
 	/// </summary>
 	public class Pair<TKey,TValue>
 	{
-		public TKey Key {get;private set;}
-		public TValue Value {get;private set;}
-		public Pair(TKey key,TValue value)
+		public TKey Key { get; private set; }
+		public TValue Value { get; private set; }
+		public Pair(TKey key, TValue value)
 		{
 			Key = key;
 			Value = value;

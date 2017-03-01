@@ -10,9 +10,10 @@ using System;
 
 namespace FeihtWorx.Data
 {
-	// todo: xxx split DataWorkerMode in DataWorkerInputMode and DataWorkerOutputMode
+	// todo: xxx split DataWorkerMode into DataWorkerInputMode and DataWorkerOutputMode
 	// input mode has all 3 (datafield, allprops and dictionary)
 	// output mode has only datafield and allprops, because dictionary would be insane.
+	// or would it?
 	
 	
 	/// <summary>
@@ -20,8 +21,8 @@ namespace FeihtWorx.Data
 	/// </summary>
 	public enum DataWorkerMode
 	{
-		Invalid ,
-		DataFields ,
+		Invalid,
+		DataFields,
 		AllProperties,
 		Dictionary,
 	}

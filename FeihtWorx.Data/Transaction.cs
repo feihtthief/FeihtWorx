@@ -17,11 +17,11 @@ namespace FeihtWorx.Data
 	/// </summary>
 	public class Transaction
 	{
-		internal DbTransaction ActualTransaction{ get; private set;} 
+		internal DbTransaction ActualTransaction{ get; private set; }
 		
 		public Transaction(DbTransaction transaction)
 		{
-			if (transaction==null) {
+			if (transaction == null) {
 				throw new ArgumentNullException("transaction");
 			}
 			ActualTransaction = transaction;

@@ -16,11 +16,11 @@ namespace Scratch
 	public class SampleClassChild:SampleClassBase
 	{
 		[Sample]
-		public String SampleName{get;set;}
+		public String SampleName{ get; set; }
 		
 		[Other]
-		public String OtherName{get;set;}
+		public String OtherName{ get; set; }
 
-		public String Barename{get;set;}
+		public String Barename{ get; set; }
 	}
 }

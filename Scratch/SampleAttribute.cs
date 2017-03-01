@@ -15,15 +15,16 @@ namespace Scratch
 	/// </summary>
 	public class SampleAttribute:Attribute
 	{
-		public string Name {get;set;}
+		public string Name { get; set; }
 		
 		public SampleAttribute()
 		{
-			Name=null;
+			Name = null;
 		}
 		
-		public SampleAttribute(string name){
-			Name=name;
+		public SampleAttribute(string name)
+		{
+			Name = name;
 		}
 	}
 }

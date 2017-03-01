@@ -13,12 +13,15 @@ namespace FeihtWorx.Data
 	/// <summary>
 	/// Description of DataFieldAttribute.
 	/// </summary>
-	[AttributeUsageAttribute(AttributeTargets.Property,AllowMultiple=true)]
+	[AttributeUsageAttribute(AttributeTargets.Property, AllowMultiple = true)]
 	public class DataFieldAttribute:Attribute
 	{
-		public String FieldName{get; set;}
-		public DataFieldAttribute(){}
-		public DataFieldAttribute(string fieldName) {
+		public String FieldName{ get; set; }
+		public DataFieldAttribute()
+		{
+		}
+		public DataFieldAttribute(string fieldName)
+		{
 			this.FieldName = fieldName;
 		}
 	}

@@ -12,15 +12,15 @@ using FeihtWorx.Data;
 namespace Tests.FeihtWorx
 {
 	/// <summary>
-	/// This class is users to test the AllProperties Mode
+	/// This class is used to test the AllProperties Mode
 	/// </summary>
-	[DataClass(FetchProcedure="FetchSample")]
+	[DataClass(FetchProcedure = "FetchSample")]
 	public class SampleClassPoco
 	{
-			public long ID {get;set;}
-			public string Name {get;set;}
-			public string Feedout {get;set;}
+		public long ID { get; set; }
+		public string Name { get; set; }
+		public string Feedout { get; set; }
 			
-			// xxx todo test with read-only props to see what happens when they are set to output
+		// xxx todo test with read-only props to see what happens when they are set to output
 	}
 }
