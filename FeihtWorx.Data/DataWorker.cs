@@ -777,6 +777,17 @@ namespace FeihtWorx.Data
 		// [ ]  do count, do delete , check count is decreased by 1, roll back check count back to first count
 		// [ ]  do fetch, do update , do new fetch, check fetched value changed, roll back ,
 		//		fetch again , check fetched again value is back to original
+
+		// TODO:
+		// write some documentatio of how this stuff is supposed to work and under which circumstances
+		//  like the ListCmd thing is not clear, even to me right now
+		//  maybe rework all the signatures to make sense
+		//  decide on what matters more, being able to infer the type, or being able to inject a custom command text?
+		//  decide on query<T> call signature, make unit tests for the full spectrum
+		//  decide on in-out flows of paramaters to input object 
+		//  decide if the output params should spill into the result set (leaning towards no right now, but it's 2:21 am, so meh)
+		//  pretty sure documentation should include assumptions that make insert and delte a success
+		//  rows affected can come out of execute calls (dononquery)
 		
 	}
 }
