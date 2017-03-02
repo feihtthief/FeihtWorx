@@ -638,7 +638,7 @@ namespace FeihtWorx.Data
 			return dwt.RowsAffected != Constants.KnownBadStateForRowsAffected;
 		}
 
-		// This Signature allows for inferring the Type from the paramsObject to be updated. The explicit version is invoked
+		// This Signature allows for inferring the Type from the paramsObject to be deleted. The explicit version is invoked
 		public bool Delete<T>(T paramsObject)
 		{
 			return Delete<T>((object)paramsObject);
@@ -656,7 +656,7 @@ namespace FeihtWorx.Data
 			return dwt.RowsAffected != Constants.KnownBadStateForRowsAffected;
 		}
 		
-		// This Signature allows for inferring the Type from the paramsObject to be updated. The explicit version is invoked
+		// This Signature allows for inferring the Type from the paramsObject to be fetched. The explicit version is invoked
 		public T Fetch<T>(T paramsObject)
 		{
 			return Fetch<T>((object)paramsObject);
@@ -665,10 +665,25 @@ namespace FeihtWorx.Data
 		public T Fetch<T>(object paramsObject)
 		{
 			var commandText = AttributeHelper.GetFirstPropertyAttribute<DataClassAttribute>(typeof(T)).FetchProcedure;
-			return Fetch<T>(commandText, paramsObject);
+			var dwt = new DataWorkerTask {
+				CommandText = commandText,
+				CommandType = CommandType.StoredProcedure,
+				Mode = DataWorkerMode.DataFields,
+				ReadResults = true
+			};
+			var results = DoWorkDirect<T>(dwt, paramsObject);
+			if ((results != null) && (results.Count > 0)) {
+				return results[0];
+			}
+			return default(T);
 		}
 		
-		public T Fetch<T>(string commandText, object paramsObject)
+		public T FetchCmd<T>(string commandText)
+		{
+			return FetchCmd<T>(commandText, null);
+		}
+		
+		public T FetchCmd<T>(string commandText, object paramsObject)
 		{
 			var dwt = new DataWorkerTask {
 				CommandText = commandText,
@@ -724,18 +739,27 @@ namespace FeihtWorx.Data
 			return List<T>(null);
 		}
 		
+		// todo: should there be an inferred List<T>???
+		
 		public List<T> List<T>(object paramsObject)
 		{
 			var commandText = AttributeHelper.GetFirstPropertyAttribute<DataClassAttribute>(typeof(T)).ListProcedure;
-			return List<T>(commandText, paramsObject);
-		}
-		
-		public List<T> List<T>(string commandText, object paramsObject)
-		{
-			return Query<T>(commandText, paramsObject);
+			var dwt = new DataWorkerTask {
+				CommandText = commandText,
+				CommandType = CommandType.StoredProcedure,
+				Mode = DataWorkerMode.DataFields,
+				ReadResults = true,
+			};
+			var result = DoWorkDirect<T>(dwt, paramsObject);
+			return result;
 		}
 
-		public List<T> Query<T>(string commandText, object paramsObject)
+		public List<T> ListCmd<T>(string commandText)
+		{
+			return ListCmd<T>(commandText, null);
+		}
+			
+		public List<T> ListCmd<T>(string commandText, object paramsObject)
 		{
 			var dwt = new DataWorkerTask {
 				CommandText = commandText,

@@ -5,20 +5,19 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-Create PROCEDURE [dbo].[FetchSampleSpecial]
-(
-	 @ID int 
-)
+Create PROCEDURE [dbo].[FetchSampleSpecialFirst]
 AS
 BEGIN
-	select 
+
+	select
+		top 1 
 		 ID
 		,Name
 		,ChangeCount
-		,'[FetchSampleSpecial]' as [SpecialExtra]
+		,'[FetchSampleSpecialFirst]'   as [SpecialExtra]
 	from 
 		samples
-	where 
-		ID = @id;
+	order by id
+
 END
 GO

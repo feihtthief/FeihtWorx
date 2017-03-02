@@ -760,11 +760,11 @@ namespace Tests.FeihtWorx
 			Assert.IsNotNull(result);
 			Assert.AreEqual(expectedAfter, after);
 			Assert.AreEqual(expectedName, result.Name);
-			Assert.AreEqual(loadID, testobject.ID);
+			Assert.AreEqual(loadID, result.ID);
 		}
 		
 		[Test]
-		public void Test_DW_Fetch_WithCustomCommandText()
+		public void Test_DW_Fetch_WithCustomCommandTextWithParams()
 		{
 			InitSamples();
 			var before = GetCountOfSamples();
@@ -776,17 +776,35 @@ namespace Tests.FeihtWorx
 			};
 			Assert.AreNotEqual(0, testobject.ID);
 			Assert.IsNullOrEmpty(testobject.Name);
-			var result = dw.Fetch<SampleClass>("FetchSampleSpecial", testobject);
+			var result = dw.FetchCmd<SampleClass>("FetchSampleSpecial", testobject);
 			var after = GetCountOfSamples();
 			var expectedAfter = before;
 			var expectedName = "three";
 			Assert.IsNotNull(result);
 			Assert.AreEqual(expectedAfter, after);
 			Assert.AreEqual(expectedName, result.Name);
-			Assert.AreEqual(loadID, testobject.ID);
-			Assert.AreEqual("yes really", result.SpecialExtra);
+			Assert.AreEqual(loadID, result.ID);
+			Assert.AreEqual("[FetchSampleSpecial]", result.SpecialExtra);
 		}
 
+		[Test]
+		public void Test_DW_Fetch_WithCustomCommandTextNoParams()
+		{
+			InitSamples();
+			var before = GetCountOfSamples();
+			Assert.AreNotEqual(0, before);
+			var dw = GetDataWorker();
+			var result = dw.FetchCmd<SampleClass>("FetchSampleSpecialFirst");
+			var after = GetCountOfSamples();
+			var expectedAfter = before;
+			var expectedName = "one";
+			Assert.IsNotNull(result);
+			Assert.AreEqual(expectedAfter, after);
+			Assert.AreEqual(expectedName, result.Name);
+			Assert.AreEqual(1, result.ID);
+			Assert.AreEqual("[FetchSampleSpecialFirst]", result.SpecialExtra);
+		}
+		
 		[Test]
 		public void Test_DW_FetchByAllProps()
 		{
@@ -897,6 +915,27 @@ namespace Tests.FeihtWorx
 			foreach (var element in result) {
 				Assert.IsNotNullOrEmpty(element.Name);
 				Assert.AreNotEqual(0, element.ID);
+				Assert.IsNull(element.SpecialExtra);
+			}
+		}
+
+		[Test]
+		public void Test_DW_List_WithCustomCommanText()
+		{
+			InitSamples();
+			var countBefore = GetCountOfSamples();
+			Assert.AreNotEqual(0, countBefore);
+			var dw = GetDataWorker();
+			var result = dw.ListCmd<SampleClass>("ListSamplesSpecial");
+			var countAfter = GetCountOfSamples();
+			var expectedCountAfter = countBefore;
+			Assert.IsNotNull(result);
+			Assert.AreEqual(expectedCountAfter, countAfter);
+			Assert.AreEqual(expectedCountAfter, result.Count);
+			foreach (var element in result) {
+				Assert.IsNotNullOrEmpty(element.Name);
+				Assert.AreNotEqual(0, element.ID);
+				Assert.AreEqual("[ListSamplesSpecial]",element.SpecialExtra);
 			}
 		}
 
