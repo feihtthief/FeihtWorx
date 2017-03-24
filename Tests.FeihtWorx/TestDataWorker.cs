@@ -379,7 +379,6 @@ namespace Tests.FeihtWorx
 			dwt.CommandType = CommandType.StoredProcedure;
 			dwt.ReadResults = true;
 			dwt.Mode = DataWorkerMode.DataFields;
-			dwt.ApplyOutputParametersToResults = true;
 			var testObject = new SampleClass{ ID = 0 };
 			var result = dw.DoWorkDirect<SampleClass>(dwt, testObject);
 			Assert.AreEqual(0, result.Count);
@@ -402,7 +401,6 @@ namespace Tests.FeihtWorx
 			dwt.CommandType = CommandType.StoredProcedure;
 			dwt.ReadResults = true;
 			dwt.Mode = DataWorkerMode.AllProperties;
-			dwt.ApplyOutputParametersToResults = true;
 			var testObject = new SampleClassPoco{ ID = 0 };
 			var result = dw.DoWorkDirect<SampleClass>(dwt, testObject);
 			Assert.AreEqual(0, result.Count);
@@ -425,7 +423,6 @@ namespace Tests.FeihtWorx
 			dwt.CommandType = CommandType.StoredProcedure;
 			dwt.ReadResults = true;
 			dwt.Mode = DataWorkerMode.AllProperties;
-			dwt.ApplyOutputParametersToResults = true;
 			var testObject = new SampleClassPoco{ ID = 0 };
 			var result = dw.DoWorkDirect<SampleClass>(dwt, testObject);
 			Assert.AreEqual(0, result.Count);
@@ -449,7 +446,6 @@ namespace Tests.FeihtWorx
 			dwt.CommandType = CommandType.StoredProcedure;
 			dwt.ReadResults = true;
 			dwt.Mode = DataWorkerMode.Dictionary;
-			dwt.ApplyOutputParametersToResults = true;
 			var testDict = new DataDictionary();
 			testDict["ID"] = 0;
 			var result = dw.DoWorkDirect<SampleClass>(dwt, testDict);
@@ -495,7 +491,7 @@ namespace Tests.FeihtWorx
 			dwt.CommandType = CommandType.StoredProcedure;
 			dwt.ReadResults = true;
 			dwt.Mode = DataWorkerMode.Dictionary;
-			dwt.ApplyOutputParametersToResults = false;
+			dwt.ApplyOutputParametersToResults = false;  // <== Explicit default to differentiate with TestOutputParameterToResultsOn()
 			var testDict = new DataDictionary();
 			testDict["Feedout"] = "moo";
 			var result = dw.DoWorkDirect<SampleClass>(dwt, testDict);
@@ -524,7 +520,7 @@ namespace Tests.FeihtWorx
 			dwt.CommandType = CommandType.StoredProcedure;
 			dwt.ReadResults = true;
 			dwt.Mode = DataWorkerMode.Dictionary;
-			dwt.ApplyOutputParametersToResults = true;
+			dwt.ApplyOutputParametersToResults = true;  // <== Explicit inversion of default to differentiate with TestOutputParameterToResultsOff()
 			var testDict = new DataDictionary();
 			testDict["Feedout"] = "moo";
 			var result = dw.DoWorkDirect<SampleClass>(dwt, testDict);
@@ -553,7 +549,6 @@ namespace Tests.FeihtWorx
 			dwt.CommandType = CommandType.StoredProcedure;
 			dwt.ReadResults = true;
 			dwt.Mode = DataWorkerMode.Dictionary;
-			dwt.ApplyOutputParametersToResults = false;
 			var testDict = new DataDictionary();
 			testDict["FeedToTestColumn"] = "ping";
 			var result = dw.DoWorkDirect<SampleClass>(dwt, testDict);
@@ -592,7 +587,6 @@ namespace Tests.FeihtWorx
 			dwt.CommandType = CommandType.StoredProcedure;
 			dwt.ReadResults = true;
 			dwt.Mode = DataWorkerMode.AllProperties;
-			dwt.ApplyOutputParametersToResults = false;
 			var result = dw.DoWorkDirect<object>(dwt);
 			Assert.AreNotEqual(0, result.Count);
 			foreach (var item in result) {
