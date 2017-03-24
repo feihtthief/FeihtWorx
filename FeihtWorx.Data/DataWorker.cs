@@ -273,8 +273,8 @@ namespace FeihtWorx.Data
 					return GetTransferListAllProperties<T>(columnNamesToIndexMappings);
 				case DataWorkerMode.Dictionary:
 					//return GetTransferListAllProperties<T>(columnNamesToIndexMappings);
+					//return GetTransferListDataDictionary(dataWorkerTask,columnNamesToIndexMappings,input);
 					return GetTransferListDatafield<T>(columnNamesToIndexMappings);
-				//	return GetTransferListDataDictionary(dataWorkerTask,columnNamesToIndexMappings,input);
 				default:
 					throw new ArgumentException("dataWorkerTask.Mode is invalid", "dataWorkerTask.Mode");
 
