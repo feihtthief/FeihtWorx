@@ -125,8 +125,8 @@ namespace Tests.FeihtWorx
 			dwt.Mode = DataWorkerMode.AllProperties;
 			var obj = new { // using anon to force non-existance of optional params
 				RequiredParam = 42, // required
-			          //OptionalParam1 = , // defaults to null in db
-			          //OptionalParam2 = , // defaults to 41   in db
+				//OptionalParam1 = , // defaults to null in db
+				//OptionalParam2 = , // defaults to 41   in db
 			};
 			var result = dw.DoWorkDirect<SampleClass>(dwt, obj);
 			Assert.IsNotNull(result);
@@ -764,6 +764,29 @@ namespace Tests.FeihtWorx
 		}
 		
 		[Test]
+		public void Test_DW_Fetch_InferredType()
+		{
+			InitSamples();
+			var before = GetCountOfSamples();
+			Assert.AreNotEqual(0, before);
+			var dw = GetDataWorker();
+			int loadID = 3;
+			var testobject = new SampleClass {
+				ID = loadID
+			};
+			Assert.AreNotEqual(0, testobject.ID);
+			Assert.IsNullOrEmpty(testobject.Name);
+			var result = dw.Fetch(testobject);
+			var after = GetCountOfSamples();
+			var expectedAfter = before;
+			var expectedName = "three";
+			Assert.IsNotNull(result);
+			Assert.AreEqual(expectedAfter, after);
+			Assert.AreEqual(expectedName, result.Name);
+			Assert.AreEqual(loadID, result.ID);
+		}
+		
+		[Test]
 		public void Test_DW_Fetch_WithCustomCommandTextWithParams()
 		{
 			InitSamples();
@@ -776,7 +799,7 @@ namespace Tests.FeihtWorx
 			};
 			Assert.AreNotEqual(0, testobject.ID);
 			Assert.IsNullOrEmpty(testobject.Name);
-			var result = dw.FetchCmd<SampleClass>("FetchSampleSpecial", testobject);
+			var result = dw.Fetch<SampleClass>("FetchSampleSpecial", testobject);
 			var after = GetCountOfSamples();
 			var expectedAfter = before;
 			var expectedName = "three";
@@ -794,7 +817,7 @@ namespace Tests.FeihtWorx
 			var before = GetCountOfSamples();
 			Assert.AreNotEqual(0, before);
 			var dw = GetDataWorker();
-			var result = dw.FetchCmd<SampleClass>("FetchSampleSpecialFirst");
+			var result = dw.Fetch<SampleClass>("FetchSampleSpecialFirst");
 			var after = GetCountOfSamples();
 			var expectedAfter = before;
 			var expectedName = "one";

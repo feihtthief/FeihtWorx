@@ -9,7 +9,7 @@ using System;
 using System.Reflection;
 using System.Data;
 using System.Data.Common;
-using System.Xml.Linq;
+//using System.Xml.Linq;
 using FeihtWorx.Util;
 using log4net;
 using System.Collections.Generic;
@@ -657,14 +657,25 @@ namespace FeihtWorx.Data
 		}
 		
 		// This Signature allows for inferring the Type from the paramsObject to be fetched. The explicit version is invoked
-		public T Fetch<T>(T paramsObject)
+		public T Fetch<T>(T paramsObject) where T : new()
 		{
 			return Fetch<T>((object)paramsObject);
 		}
 
-		public T Fetch<T>(object paramsObject)
+		public T Fetch<T>(object paramsObject) where T : new()
 		{
 			var commandText = AttributeHelper.GetFirstPropertyAttribute<DataClassAttribute>(typeof(T)).FetchProcedure;
+			return Fetch<T>(commandText , paramsObject);
+		}
+		
+		public T Fetch<T>(string commandText) where T : new()
+		{
+			return Fetch<T>(commandText , null);
+		}
+
+		public T Fetch<T>(string commandText, object paramsObject) where T : new()
+		{
+			//var commandText = AttributeHelper.GetFirstPropertyAttribute<DataClassAttribute>(typeof(T)).FetchProcedure;
 			var dwt = new DataWorkerTask {
 				CommandText = commandText,
 				CommandType = CommandType.StoredProcedure,
@@ -677,26 +688,26 @@ namespace FeihtWorx.Data
 			}
 			return default(T);
 		}
-		
-		public T FetchCmd<T>(string commandText)
-		{
-			return FetchCmd<T>(commandText, null);
-		}
-		
-		public T FetchCmd<T>(string commandText, object paramsObject)
-		{
-			var dwt = new DataWorkerTask {
-				CommandText = commandText,
-				CommandType = CommandType.StoredProcedure,
-				Mode = DataWorkerMode.DataFields,
-				ReadResults = true
-			};
-			var results = DoWorkDirect<T>(dwt, paramsObject);
-			if ((results != null) && (results.Count > 0)) {
-				return results[0];
-			}
-			return default(T);
-		}
+
+//		public T FetchCmd<T>(string commandText)
+//		{
+//			return FetchCmd<T>(commandText, null);
+//		}
+//		
+//		public T FetchCmd<T>(string commandText, object paramsObject)
+//		{
+//			var dwt = new DataWorkerTask {
+//				CommandText = commandText,
+//				CommandType = CommandType.StoredProcedure,
+//				Mode = DataWorkerMode.DataFields,
+//				ReadResults = true
+//			};
+//			var results = DoWorkDirect<T>(dwt, paramsObject);
+//			if ((results != null) && (results.Count > 0)) {
+//				return results[0];
+//			}
+//			return default(T);
+//		}
 		
 		public T FetchByAllProps<T>(object paramsObject)
 		{
@@ -771,8 +782,8 @@ namespace FeihtWorx.Data
 			return result;
 		}
 		
-		// todo: implement transaction on insert, update, delete, et all
-		// todo: implement unit tests that cover transactions
+		// TODO: implement transaction on insert, update, delete, et all
+		// TODO: implement unit tests that cover transactions
 		// [ ]  do count, do insert , check count is increased by 1, roll back check count back to first count
 		// [ ]  do count, do delete , check count is decreased by 1, roll back check count back to first count
 		// [ ]  do fetch, do update , do new fetch, check fetched value changed, roll back ,
@@ -786,7 +797,7 @@ namespace FeihtWorx.Data
 		//  decide on query<T> call signature, make unit tests for the full spectrum
 		//  decide on in-out flows of paramaters to input object 
 		//  decide if the output params should spill into the result set (leaning towards no right now, but it's 2:21 am, so meh)
-		//  pretty sure documentation should include assumptions that make insert and delte a success
+		//  pretty sure documentation should include assumptions that make insert and delete a success
 		//  rows affected can come out of execute calls (dononquery)
 		
 	}
