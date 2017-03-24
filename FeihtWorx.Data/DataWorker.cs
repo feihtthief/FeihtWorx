@@ -665,12 +665,12 @@ namespace FeihtWorx.Data
 		public T Fetch<T>(object paramsObject) where T : new()
 		{
 			var commandText = AttributeHelper.GetFirstPropertyAttribute<DataClassAttribute>(typeof(T)).FetchProcedure;
-			return Fetch<T>(commandText , paramsObject);
+			return Fetch<T>(commandText, paramsObject);
 		}
 		
 		public T Fetch<T>(string commandText) where T : new()
 		{
-			return Fetch<T>(commandText , null);
+			return Fetch<T>(commandText, null);
 		}
 
 		public T Fetch<T>(string commandText, object paramsObject) where T : new()
@@ -689,25 +689,25 @@ namespace FeihtWorx.Data
 			return default(T);
 		}
 
-//		public T FetchCmd<T>(string commandText)
-//		{
-//			return FetchCmd<T>(commandText, null);
-//		}
-//		
-//		public T FetchCmd<T>(string commandText, object paramsObject)
-//		{
-//			var dwt = new DataWorkerTask {
-//				CommandText = commandText,
-//				CommandType = CommandType.StoredProcedure,
-//				Mode = DataWorkerMode.DataFields,
-//				ReadResults = true
-//			};
-//			var results = DoWorkDirect<T>(dwt, paramsObject);
-//			if ((results != null) && (results.Count > 0)) {
-//				return results[0];
-//			}
-//			return default(T);
-//		}
+		//		public T FetchCmd<T>(string commandText)
+		//		{
+		//			return FetchCmd<T>(commandText, null);
+		//		}
+		//
+		//		public T FetchCmd<T>(string commandText, object paramsObject)
+		//		{
+		//			var dwt = new DataWorkerTask {
+		//				CommandText = commandText,
+		//				CommandType = CommandType.StoredProcedure,
+		//				Mode = DataWorkerMode.DataFields,
+		//				ReadResults = true
+		//			};
+		//			var results = DoWorkDirect<T>(dwt, paramsObject);
+		//			if ((results != null) && (results.Count > 0)) {
+		//				return results[0];
+		//			}
+		//			return default(T);
+		//		}
 		
 		public T FetchByAllProps<T>(object paramsObject)
 		{
@@ -795,7 +795,7 @@ namespace FeihtWorx.Data
 		//  maybe rework all the signatures to make sense
 		//  decide on what matters more, being able to infer the type, or being able to inject a custom command text?
 		//  decide on query<T> call signature, make unit tests for the full spectrum
-		//  decide on in-out flows of paramaters to input object 
+		//  decide on in-out flows of paramaters to input object
 		//  decide if the output params should spill into the result set (leaning towards no right now, but it's 2:21 am, so meh)
 		//  pretty sure documentation should include assumptions that make insert and delete a success
 		//  rows affected can come out of execute calls (dononquery)
