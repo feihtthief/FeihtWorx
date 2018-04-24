@@ -937,7 +937,7 @@ namespace Tests.FeihtWorx
 		}
 
 		[Test]
-		public void Test_DW_List_WithCustomCommanText()
+		public void Test_DW_List_WithCustomCommandText()
 		{
 			InitSamples();
 			var countBefore = GetCountOfSamples();
