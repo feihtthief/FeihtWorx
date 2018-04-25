@@ -16,6 +16,7 @@ using log4net;
 using NUnit.Framework;
 
 using FeihtWorx.Data;
+using Tests.FeihtWorx.SharedThings;
 
 /*
  * These test make a few assumptions:
@@ -936,6 +937,73 @@ namespace Tests.FeihtWorx
 			}
 		}
 
+		//[Test] // SLOW TEST
+		public void Test_DW_List_Lots_SqlText()
+		{
+			var dw = GetDataWorker();
+
+			var dwt = new DataWorkerTask();
+			dwt.CommandText = "select * from LotsOfRows";
+			dwt.CommandType = CommandType.Text;
+			dwt.ReadResults = true;
+			var startT = Environment.TickCount;
+			var result = dw.DoWorkDirect<LotsClass>(dwt);
+			var endT = Environment.TickCount;
+			Console.WriteLine("Query Time: {0:N} ms",endT-startT);
+			
+			Assert.IsNotNull(result);
+			foreach (var element in result) {
+				Assert.AreNotEqual(0, element.ID);
+				Assert.AreNotEqual(0, element.Number);
+				Assert.IsNotNullOrEmpty(element.Name);
+			}
+			Console.WriteLine("Total Rows: {0}",result.Count);
+			
+		}
+
+		//[Test] // SLOW TEST
+		public void Test_DW_List_Lots_StoredProc()
+		{
+			var dw = GetDataWorker();
+
+			var dwt = new DataWorkerTask();
+			dwt.CommandText = "ListLotsOfRows";
+			dwt.CommandType = CommandType.StoredProcedure;
+			dwt.ReadResults = true;
+			var startT = Environment.TickCount;
+			var result = dw.DoWorkDirect<LotsClass>(dwt);
+			var endT = Environment.TickCount;
+			Console.WriteLine("Query Time: {0:N} ms",endT-startT);
+			
+			Assert.IsNotNull(result);
+			foreach (var element in result) {
+				Assert.AreNotEqual(0, element.ID);
+				Assert.AreNotEqual(0, element.Number);
+				Assert.IsNotNullOrEmpty(element.Name);
+			}
+			Console.WriteLine("Total Rows: {0}",result.Count);
+			
+		}
+
+		//[Test] // SLOW TEST
+		public void Test_DW_List_Lots_ClassListProc()
+		{
+			var dw = GetDataWorker();
+			var startT = Environment.TickCount;
+			var result = dw.List<LotsClass>();
+			var endT = Environment.TickCount;
+			Console.WriteLine("Query Time: {0:N} ms",endT-startT);
+			
+			Assert.IsNotNull(result);
+			foreach (var element in result) {
+				Assert.AreNotEqual(0, element.ID);
+				Assert.AreNotEqual(0, element.Number);
+				Assert.IsNotNullOrEmpty(element.Name);
+			}
+			Console.WriteLine("Total Rows: {0}",result.Count);
+			
+		}
+		
 		[Test]
 		public void Test_DW_List_WithCustomCommandText()
 		{

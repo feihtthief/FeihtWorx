@@ -59,6 +59,10 @@
       <Project>{3C92C70B-C481-4172-B5ED-99439A2EA28D}</Project>
       <Name>FeihtWorx.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tests.FeihtWorx.SharedThings\Tests.FeihtWorx.SharedThings.csproj">
+      <Project>{55B2CF60-C70D-4F36-913D-ECE3A22E9A08}</Project>
+      <Name>Tests.FeihtWorx.SharedThings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -109,6 +109,10 @@
       <Project>{E05AFAB8-8B7C-4EED-9FD7-90A58504E022}</Project>
       <Name>FeihtWorx.Util</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tests.FeihtWorx.SharedThings\Tests.FeihtWorx.SharedThings.csproj">
+      <Project>{55b2cf60-c70d-4f36-913d-ece3a22e9a08}</Project>
+      <Name>Tests.FeihtWorx.SharedThings</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ProfilingSessions\Session20101120_225957.sdps" />
@@ -121,8 +125,10 @@
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Support" />
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
 </Project>
